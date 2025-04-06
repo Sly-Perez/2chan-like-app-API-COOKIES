@@ -1,0 +1,5 @@
+folders changes:
+(folder name) folder added/updated/deleted: (filename) file added/updated/deleted (breaf explanation of the change)
+
+example;
+gateway folder added: UserGateway.php added (We will handle database interactions related to our Users table in a class called UserGateway)
