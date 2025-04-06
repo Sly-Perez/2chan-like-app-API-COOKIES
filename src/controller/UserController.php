@@ -541,7 +541,7 @@ class UserController{
 
         $this->sessionGateway->add($data["userId"], $uuid);
 
-        //if you are in localhost, you might want to consider to set cookies in a much simpler way, if you set them like this, you won't be able to use cookies properly from 
+        //if you are in localhost, you might want to consider to set cookies in a much simpler way, if you set them like this, you won't be able to use cookies properly from your client app
         setcookie("sessionUUID", $encryptedUUID, [
             "expires" => time() + 7200,
             "path" => "/",
@@ -564,6 +564,7 @@ class UserController{
         
         $this->sessionGateway->deleteByUUIDAndUserId($sessionUUID, $data["userId"]);
         
+        //if you are in localhost, you might want to consider to unset cookies in a similar you set them. If you did not add for example an httpOnly => true, omit it
         setcookie("sessionUUID", "", [
             "expires" => time() - 3600,
             "path" => "/",
