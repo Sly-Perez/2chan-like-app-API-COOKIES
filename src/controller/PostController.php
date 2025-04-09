@@ -280,8 +280,8 @@ class PostController{
 
     private function getSanitizedInputData(?array $data, ?array $images): array{
 
-        $header = filter_var(trim($data['header'] ?? ""), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $description = filter_var(trim($data['description'] ?? ""), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $header = htmlspecialchars(trim($data['header'] ?? ""), ENT_NOQUOTES, 'UTF-8');
+        $description = htmlspecialchars(trim($data['description'] ?? ""), ENT_NOQUOTES, 'UTF-8');
         $numberOfImages = empty($images['name'][0]) ? 0 : count($images['name']);
 
         if($numberOfImages > 0){
