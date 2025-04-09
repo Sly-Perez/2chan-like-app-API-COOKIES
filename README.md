@@ -9,7 +9,7 @@ This version of the API works with COOKIES to handle sessions. (they become thir
     - The username of a user must not start with a number.
     - The username of a user can be, at most, 30 characters, and it can contain unicode characters.
     - The email of a user can be, at most, 100 characters, and it must not contain unicode characters.
-    - The password of a user can be, at most, 30 characters, and it can contain unicode characters.
+    - The password of a user can be, at most, 30 characters, and it can contain unicode characters. **Do Not** add any of the following special characters: "<", ">", "&". They will be sanitized and transformed to HTML entities. Example; "&" => &amp;. If you do so, your password will be different as the one you set in a beginning.
     - The inclusion of a custom profile picture is optional. A User will have a blank picture like other social media apps (facebook, etc.) by default.
     - In case there is the inclusion of a custom profile picture: The allowed formats are: "jpeg", "jpg", "webp", "gif" or "png".
 
