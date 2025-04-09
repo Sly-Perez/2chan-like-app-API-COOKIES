@@ -381,9 +381,9 @@ class UserController{
 
     private function getSanitizedInputData(?array $data, ?array $image, bool $is_updated = false):array{
 
-        $username = filter_var(trim($data['username'] ?? ""), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $email = filter_var(trim($data['email'] ?? ""), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $password = filter_var(trim($data['password'] ?? ""), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $username = htmlspecialchars(trim($data['username'] ?? ""), ENT_NOQUOTES, 'UTF-8');
+        $email = htmlspecialchars(trim($data['email'] ?? ""), ENT_NOQUOTES, 'UTF-8');
+        $password = htmlspecialchars(trim($data['password'] ?? ""), ENT_NOQUOTES, 'UTF-8');
         
         if($image !== NULL && !empty($image['name']) && ($image['error'] === 0)){
             
