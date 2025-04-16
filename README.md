@@ -514,7 +514,136 @@ If everything went well, the API should send back an array of JSON objects with 
 *[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*<br>
 *[In case there are 0 posts, you will receive an empty array as a response]*
 
-#### 3. Get All posts of the logged-in user
+#### 3. Get information of the top 200 newest posts
+It allows you to get the information of the 200 newest posts among all the existing posts in the weekieMochi Database. The requirements don't vary depending on the situation.<br>
+
+**GET Request to endpoint:**<br>
+/posts/newest
+
+- **Requirements**:
+    - Do not send any bodies nor objects.
+
+**Expected response:**<br>
+If everything went well, the API should send back an array of JSON objects with the information of the top 200 newest posts and a **200** status code.
+```
+[Content-Type: "application/json"]
+[
+    {
+    "postId": 77,
+    "header": "test 77 header",
+    "description": "test 77 description",
+    "publishDatetime": "2025-03-31 23:59:30",
+    "commentsQuantity": 3,
+    "numberOfImages": 0,
+    "userId": 20
+    },
+    {
+    "postId": 777,
+    "header": "test 777 header",
+    "description": "test 777 description",
+    "publishDatetime": "2025-03-31 23:30:03",
+    "commentsQuantity": 0,
+    "numberOfImages": 0,
+    "userId": 1
+    }
+]
+```
+
+**Expected exception response:**<br>
+*[This endpoint does not count with a specific exception response]*
+
+**Note:**  
+*[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*<br>
+*[In case there are 0 posts, you will receive an empty array as a response]*<br>
+
+#### 4. Get information of the top 200 most popular posts
+It allows you to get the information of the 200 most popular posts among all the existing posts in the weekieMochi Database. The requirements don't vary depending on the situation.<br>
+
+**GET Request to endpoint:**<br>
+/posts/popular
+
+- **Requirements**:
+    - Do not send any bodies nor objects.
+
+**Expected response:**<br>
+If everything went well, the API should send back an array of JSON objects with the information of the top 200 most popular posts and a **200** status code.
+```
+[Content-Type: "application/json"]
+[
+    {
+    "postId": 66,
+    "header": "test 66 header",
+    "description": "test 6 description",
+    "publishDatetime": "2025-03-31 23:24:03",
+    "commentsQuantity": 53,
+    "numberOfImages": 0,
+    "userId": 2
+    },
+    {
+    "postId": 666,
+    "header": "test 666 header",
+    "description": "test 666 description",
+    "publishDatetime": "2025-03-31 23:30:03",
+    "commentsQuantity": 55,
+    "numberOfImages": 0,
+    "userId": 1
+    }
+]
+```
+
+**Expected exception response:**<br>
+*[This endpoint does not count with a specific exception response]*
+
+**Note:**  
+*[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*<br>
+*[In case there are 0 posts, you will receive an empty array as a response]*<br>
+*[The **hierarchy of the elements to consider a post as popular** is: number of users that commented, number of comments by user, number of users with active comment Reactions to comments, number of comment Reactions by user]*
+
+#### 5. Get information of all posts the logged-in user has interacted with
+It allows you to get the information of all the posts the logged-in user has commented on. The requirements don't vary depending on the situation.<br>
+
+**GET Request to endpoint:**<br>
+/posts/my/interacted
+
+- **Requirements**:
+    - Do not send any bodies nor objects.
+
+**Expected response:**<br>
+If everything went well, the API should send back an array of JSON objects with the information of all the posts the user has commented on and a **200** status code.
+```
+[Content-Type: "application/json"]
+[
+  {
+    "postId": 10,
+    "header": "test 10 header",
+    "description": "test 10 description",
+    "publishDatetime": "2025-03-30 12:37:50",
+    "commentsQuantity": 30,
+    "numberOfImages": 0,
+    "userId": 20,
+    "interactedDatetime": "2025-04-15 13:39:14"
+  },
+  {
+    "postId": 18,
+    "header": "test 18 header",
+    "description": "test 18 description",
+    "publishDatetime": "2025-04-01 13:12:58",
+    "commentsQuantity": 2,
+    "numberOfImages": 0,
+    "userId": 10,
+    "interactedDatetime": "2025-04-15 13:23:56"
+  }
+]
+```
+
+**Expected exception response:**<br>
+*[This endpoint does not count with a specific exception response]*
+
+**Note:**  
+*[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*<br>
+*[In case there are 0 posts, you will receive an empty array as a response]*<br>
+
+#### 6. Get All posts of the logged-in user
 It allows you to get the information of all posts created by the logged-in user. The requirements don't vary depending on the situation.<br>
 
 **GET Request to endpoint:**<br>
@@ -547,7 +676,7 @@ If everything went well, the API should send back an array of JSON objects with 
 *[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*<br>
 *[In case there are 0 posts, you will receive an empty array as a response]*
 
-#### 4. Get information of a post
+#### 7. Get information of a post
 It allows you to get the information of any post registered in the weekieMochi Database. The requirements don't vary depending on the situation.<br>
 
 **GET Request to endpoint:**<br>
@@ -585,7 +714,7 @@ If no post with the given id exists, the API should send back a JSON body with t
 **Note:**  
 *[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*
 
-#### 5. Get an image attached to a post
+#### 8. Get an image attached to a post
 It allows you to get an image attached to a post. The requirements don't vary depending on the situation.<br>
 
 **GET Request to endpoint:**<br>
@@ -625,7 +754,7 @@ If the corresponding image attached to the post does exist, but the server is no
 *[The Content-Type header will not always be "image/png", it will vary depending on what the MIME type of the picture is, which, at the same time, will be aligned to the allowed formats; In the case of the **Expected exception response 2**, it will always be "image/webp" unless it is changed by developers.]*<br>
 *[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*
 
-#### 6. Delete post
+#### 9. Delete post
 It allows you to delete a post. The requirements vary whether you want to delete a post of yours or a post of another user.<br>
 
 **DELETE Request to endpoint:**<br>
