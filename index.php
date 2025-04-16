@@ -63,6 +63,12 @@ if(array_key_exists(3, $parts)){
             }
             $url = "my/" . $parts[4];
             break;
+        case "newest":
+            $url = "newest";
+            break;
+        case "popular":
+            $url = "popular";
+            break;
         default:
             $url = NULL;
             break;
