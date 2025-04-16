@@ -8,7 +8,7 @@ class CommentImageGateway{
         $this->dbCon = $dbConnection->connectDB();
     }
 
-    public function getByCommentIdAndIndex(string $id, string $index): array | false{
+    public function getByCommentIdAndIndex(string $commentId, string $index): array | false{
         $sql = "SELECT
             commentImageId, name,
             publishDatetime, userId,
@@ -19,7 +19,7 @@ class CommentImageGateway{
 
         $stmt = $this->dbCon->prepare($sql);
 
-        $stmt->bindValue(":commentId", $id, PDO::PARAM_INT);
+        $stmt->bindValue(":commentId", $commentId, PDO::PARAM_INT);
         $stmt->bindValue(":state", 1, PDO::PARAM_INT);
         $stmt->bindValue(":offset", $index, PDO::PARAM_INT);
         $stmt->bindValue(":rows_count", 1, PDO::PARAM_INT);

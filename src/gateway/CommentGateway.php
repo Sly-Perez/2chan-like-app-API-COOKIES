@@ -8,7 +8,7 @@ class CommentGateway{
         $this->dbCon = $dbConnection->connectDB();
     }
 
-    public function getAllMainByPostId(string $id): array{
+    public function getAllMainByPostId(string $postId): array{
         $sql = "SELECT 
                     commentId, description, publishDatetime,
                     likesQuantity, dislikesQuantity, 
@@ -21,7 +21,7 @@ class CommentGateway{
         $stmt = $this->dbCon->prepare($sql);
 
         $stmt->bindValue(":state", 1, PDO::PARAM_INT);
-        $stmt->bindValue(":postId", $id, PDO::PARAM_INT);
+        $stmt->bindValue(":postId", $postId, PDO::PARAM_INT);
 
         $stmt->execute();
 

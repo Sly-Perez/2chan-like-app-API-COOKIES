@@ -8,7 +8,7 @@ class PostImageGateway{
         $this->dbCon = $dbConnection->connectDB();
     }
 
-    public function getByPostIdAndIndex(string $id, string $index): array | false{
+    public function getByPostIdAndIndex(string $postId, string $index): array | false{
         try {
             $sql = "SELECT
                 postImageId, name,
@@ -20,7 +20,7 @@ class PostImageGateway{
     
             $stmt = $this->dbCon->prepare($sql);
     
-            $stmt->bindValue(":postId", $id, PDO::PARAM_INT);
+            $stmt->bindValue(":postId", $postId, PDO::PARAM_INT);
             $stmt->bindValue(":state", 1, PDO::PARAM_INT);
             $stmt->bindValue(":offset", $index, PDO::PARAM_INT);
             $stmt->bindValue(":rows_count", 1, PDO::PARAM_INT);
