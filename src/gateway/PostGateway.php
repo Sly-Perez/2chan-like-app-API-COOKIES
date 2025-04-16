@@ -9,18 +9,9 @@ class PostGateway{
     }
 
     public function getAll(): array{
-        $sql = "SELECT 
-                    postId, header,
-                    description, publishDatetime,
-                    commentsQuantity, numberOfImages,
-                    userId
-                FROM posts
-                WHERE (state=:state) 
-                ORDER BY postId DESC";
+        $sql = "CALL usp_getAllPosts()";
         
         $stmt = $this->dbCon->prepare($sql);
-
-        $stmt->bindValue(":state", 1, PDO::PARAM_INT);
 
         $stmt->execute();
 
@@ -29,20 +20,50 @@ class PostGateway{
         return $data;
     }
 
-    public function getAllByUserId(string $id): array{
-        $sql = "SELECT 
-                    postId, header,
-                    description, publishDatetime,
-                    commentsQuantity, numberOfImages,
-                    userId
-                FROM posts
-                WHERE (state=:state) AND (userId=:userId)
-                ORDER BY postId DESC";
+    public function getAllNewest(): array{
+        $sql = "CALL usp_getNewestPosts()";
         
         $stmt = $this->dbCon->prepare($sql);
 
-        $stmt->bindValue(":state", 1, PDO::PARAM_INT);
-        $stmt->bindValue(":userId", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
+
+    public function getAllPopular(): array{
+        $sql = "CALL usp_getPopularPosts()";
+        
+        $stmt = $this->dbCon->prepare($sql);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
+
+    public function getAllInteractedByUserId(string $userId): array{
+        $sql = "CALL usp_getAllInteractedPostsByUserId(:userId)";
+        
+        $stmt = $this->dbCon->prepare($sql);
+
+        $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
+
+    public function getAllByUserId(string $userId): array{
+        $sql = "CALL usp_getAllPostsByUserId(:userId)";
+        
+        $stmt = $this->dbCon->prepare($sql);
+
+        $stmt->bindValue(":userId", $userId, PDO::PARAM_INT);
 
         $stmt->execute();
 
@@ -109,7 +130,7 @@ class PostGateway{
         
     }
 
-    public function deleteById(string $postId): void{
+    public function deleteById(string $id): void{
         
         try {
             
@@ -117,7 +138,7 @@ class PostGateway{
 
             $stmt = $this->dbCon->prepare($sql);
 
-            $stmt->bindValue(":postId", $postId, PDO::PARAM_INT);
+            $stmt->bindValue(":postId", $id, PDO::PARAM_INT);
 
             $stmt->execute();
 
