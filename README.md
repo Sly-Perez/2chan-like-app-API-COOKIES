@@ -1244,3 +1244,20 @@ If no comment Reaction of the logged-in user to the comment exists, the API shou
 **Note:**  
 *[You can send an object (JSON or form-data). However, it will not be taken into account because it is not useful in this request]*
 
+
+## Exceptions Responses
+When an exception occurs (no matter the status code) the API will **ALWAYS** return a JSON object, this object will **ALWAYS** contain an array of strings named "errors" that will store the proper error messages.
+
+**Expected Response**:<br>
+If anything goes wrong with a request made by the user, the response will always return a JSON object similar to the following along with the corresponding status code of the error.
+```
+[Content-Type: "application/json"]
+{
+    "errors": [
+        "error1"
+    ]
+}
+```
+
+**Note:**<br>
+*[this way of handling exceptions facilitates the consumption of the API from client apps]*
