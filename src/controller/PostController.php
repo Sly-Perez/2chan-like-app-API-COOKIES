@@ -205,6 +205,23 @@ class PostController{
         
                         echo json_encode($posts);
                         break;
+                    case "newest":
+                        $posts = $this->gateway->getAllNewest();
+
+                        echo json_encode($posts);
+                        break;
+                    case "popular":
+                        $posts = $this->gateway->getAllPopular();
+
+                        echo json_encode($posts);
+                        break;
+                    case "my/interacted":
+                        $userDB = $this->userController->getUserByUUID();
+
+                        $posts = $this->gateway->getAllInteractedByUserId($userDB["userId"]);
+                        
+                        echo json_encode($posts);
+                        break;
                     case "my/list":
                         $userDB = $this->userController->getUserByUUID();
 
